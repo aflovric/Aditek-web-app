@@ -15,31 +15,55 @@
 <div class="contatiner text-center">
     Cijene su okvirne i mogu se mjenjati u odnosu na konkretnu situaciju.
 </div>
+
 <div class="container col-12 col-sm-12 col-md-8 col-lg-6 p-4 text-center">
     <table class="table table-bordered">
         <tr>
             <th>Vrsta posla</th>
-            @*@if (User.IsInRole("Administrator"))
-                {*@
             <th>Cijena po mjernoj jedinici</th>
             <th class="col-4">Akcija</th>
-            @*}*@
         </tr>
-        @foreach (var jobType in Model.jobTypes)
-        {
-            <tr id="JobId-@jobType.Id">
-                <td>@jobType.Name</td>
-                <td>@jobType.PricePerUnitOfMeasurement kn</td>
-                @*@if (User.IsInRole("Administrator"))
-                    {*@
-                <td>
-                    <a class="btn btn-primary" asp-controller="Admin" asp-action="EditJobType" asp-route-id="@jobType.Id">Uredi</a>
-                    <a class="btn btn-danger" onclick="deleteJobType(@jobType.Id)">Izbriši</a>
-                </td>
-
-                @*}*@
-            </tr>
-        }
+        <tr>
+            <td>Betoniranje</td>
+            <td>250 kn</td>
+            <td>
+                <a class="btn btn-primary">Uredi</a>
+                <a class="btn btn-danger">Izbriši</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Krovopokrivanje</td>
+            <td>400 kn</td>
+            <td>
+                <a class="btn btn-primary">Uredi</a>
+                <a class="btn btn-danger">Izbriši</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Vodoinstaliranje</td>
+            <td>150 kn</td>
+            <td>
+                <a class="btn btn-primary">Uredi</a>
+                <a class="btn btn-danger">Izbriši</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Žbukanje</td>
+            <td>350 kn</td>
+            <td>
+                <a class="btn btn-primary">Uredi</a>
+                <a class="btn btn-danger">Izbriši</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Zidanje</td>
+            <td>20 kn</td>
+            <td>
+                <a class="btn btn-primary">Uredi</a>
+                <a class="btn btn-danger">Izbriši</a>
+            </td>
+        </tr>
+        
     </table>
 </div>
 <script>

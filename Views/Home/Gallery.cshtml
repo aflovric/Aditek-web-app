@@ -62,81 +62,69 @@
     </form>
 </div>*@
 <div class="row no-gutter">
-    @if (Model.JobReferenceCards.Count() == 0)
-    {
-        <div class="container text-center pt-4">
-            <h1>Nema rezultata</h1>
-        </div>
-    }
-    @foreach (var jobReference in Model.JobReferenceCards)
-    {
-        <div id="img-@jobReference.Id" class="col-12 col-md-6 col-lg-6 col-xl-4 p-2 pt-4 pb-5">
-            @*@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))*@           
-            <text class="jobReferenceCard">
-                @*@{
-            <div class="row">
-                <form>
-                    <button asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id" class="btn btn-sm btn-primary d-none d-md-inline-block">
-                        Edit
-                    </button>
-                </form>
-                <form onclick="deleteJobReference(@jobReference.Id)">
-                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
-                        Delete
-                    </button>
+    <div id="img-10" class="col-12 col-md-6 col-lg-6 col-xl-4 p-2 pt-4 pb-5">
+        <text class="jobReferenceCard">
+            <a href="/GalerijaRadova/Detalji?id=10">
+                <div class="track-card-image" style="background-image: url('/Images/Renoviranje kuće/Renoviranje kuće0.jpg')">
+                </div>
+            </a>
+            <div class="row text-center pt-2">
+                <form onclick="deleteJobReference(10)">
+                    <a type="submit" class="btn btn-sm btn-danger d-md-inline-block">
+                        Izbriši
+                    </a>
                 </form>
             </div>
-            <a class="btn-danger" asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id">Edit</a>
-        }*@
-                <a asp-action="Details" asp-route-id="@jobReference.Id">
-                    <div class="track-card-image" style="background-image: url('/Images/@jobReference.Title/@jobReference.Images.FirstOrDefault()')">
-                    </div>
-                </a>
-                <div class="row text-center pt-2">
-                    @*<form>
-                        <a asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id" class="btn btn-sm btn-primary d-md-inline-block">
-                            Uredi
-                        </a>
-                    </form>*@
-                    <form onclick="deleteJobReference(@jobReference.Id)">
-                        <a type="submit" class="btn btn-sm btn-danger d-md-inline-block">
-                            Izbriši
-                        </a>
-                    </form>
+            <text>
+                <h1 class="" style="padding-left:8px">Renoviranje kuće</h1>
+                <div style="padding-left:8px">
+                    Betoniranje, zidanje, žbukanje, krovopokrivanje.
                 </div>
-                <text @*class="col-xl-12"*@>
-                    <h1 class="" style="padding-left:8px">@jobReference.Title</h1>
-                    <div style="padding-left:8px">
-                        @{int i = 1;
-                            foreach (var jobType in jobReference.JobTypes)
-                            {
-                                if (i == 1)
-                                {
-                                    <text>@jobType, </text>
-                                    i++;
-                                }
-                                else if (i == jobReference.JobTypes.Count())
-                                {
-                                    if (i == 1)
-                                    {
-                                        <text>@jobType.</text>
-                                    }
-                                    else
-                                    {
-                                        <text>@jobType.ToLower().</text>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <text>@jobType.ToLower(), </text>
-                                    i++;
-                                }
-                            }
-                        }
-                    </div>
-</div>
-    }
+            </text>
+        </text>
+    </div>
+    <div id="img-12" class="col-12 col-md-6 col-lg-6 col-xl-4 p-2 pt-4 pb-5">
+        <text class="jobReferenceCard">
+            <a href="/GalerijaRadova/Detalji?id=12">
+                <div class="track-card-image" style="background-image: url('/Images/Izgradnja zgrade/Izgradnja zgrade0.jpg')">
+                </div>
+            </a>
+            <div class="row text-center pt-2">
+                <form onclick="deleteJobReference(12)">
+                    <a type="submit" class="btn btn-sm btn-danger d-md-inline-block">
+                        Izbriši
+                    </a>
+                </form>
+            </div>
+            <text>
+                <h1 class="" style="padding-left:8px">Izgradnja zgrade</h1>
+                <div style="padding-left:8px">
+                    Betoniranje, zidanje, žbukanje, vodoinstaliranje.
+                </div>
+            </text>
+        </text>
+    </div>
+    <div id="img-13" class="col-12 col-md-6 col-lg-6 col-xl-4 p-2 pt-4 pb-5">
+        <text class="jobReferenceCard">
+            <a href="/GalerijaRadova/Detalji?id=13">
+                <div class="track-card-image" style="background-image: url('/Images/Razni građ. radovi/Razni građ. radovi0.jpg')">
+                </div>
+            </a>
+            <div class="row text-center pt-2">
+                <form onclick="deleteJobReference(13)">
+                    <a type="submit" class="btn btn-sm btn-danger d-md-inline-block">
+                        Izbriši
+                    </a>
+                </form>
+            </div>
+            <text>
+                <h1 class="" style="padding-left:8px">Razni građ. radovi</h1>
+                <div style="padding-left:8px">
+                    Žbukanje, krovopokrivanje, vodoinstaliranje.
+                </div>
+            </text>
+        </text>
+    </div>
 </div>
 <script>
     $(function () {
