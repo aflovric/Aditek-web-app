@@ -1,0 +1,30 @@
+﻿@model JobTypeCreateEditViewModel
+@{ ViewData["activeView"] = "ListServices"; }
+<div class="d-none d-sm-block">
+    <form target="_self" method="post" enctype="multipart/form-data">
+        <div class="input-group">
+            <label hidden asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" placeholder="Ime usluge" />
+            <span asp-validation-for="Name"></span>
+            <div class="invalid-feedback">Molim ispunit ovo polje</div>
+            <label hidden asp-for="PricePerUnitOfMeasurement"></label>
+            <input asp-for="PricePerUnitOfMeasurement" class="form-control" placeholder="Cijena usluge" />
+            <span asp-validation-for="PricePerUnitOfMeasurement"></span>
+            <div class="invalid-feedback">Molim ispunit ovo polje</div>
+            <input class="btn btn-lightgray col-2" type="submit" name="save" value="Pohrani" />
+        </div>
+    </form>
+</div>
+<div class="d-sm-none">
+    <form target="_self" method="post" enctype="multipart/form-data">
+        <label hidden asp-for="Name"></label>
+        <input asp-for="Name" class="form-control p-3" placeholder="Ime usluge" />
+        <span asp-validation-for="Name"></span>
+        <div class="invalid-feedback">Molim ispunit ovo polje</div>
+        <label hidden asp-for="PricePerUnitOfMeasurement"></label>
+        <input asp-for="PricePerUnitOfMeasurement" class="form-control p-3" placeholder="Cijena usluge" />
+        <span asp-validation-for="PricePerUnitOfMeasurement"></span>
+        <div class="invalid-feedback">Molim ispunit ovo polje</div>
+        <input class="btn btn-lightgray col-12 p-3" type="submit" name="save" value="Pohrani" />
+    </form>
+</div>

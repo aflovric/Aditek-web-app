@@ -1,0 +1,73 @@
+﻿@model JobReferenceCard
+@{ViewData["Title"] = "Gallery";
+    ViewData["activeView"] = "Gallery"; }
+<div id="myModal" style="z-index:1031" class="modal">
+    <span class="close" style="z-index:1032">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+<div class="container col-11 text-center">
+    <h1>@Model.Title</h1>
+    <h5>Rađeni poslovi:</h5>
+    <div>
+        @{int x = 1;
+            foreach (var jobType in Model.JobTypes)
+            {
+                if (x == 1)
+                {
+                    <text>@jobType, </text>
+                    x++;
+                }
+                else if (x == Model.JobTypes.Count())
+                {
+                    if (x == 1)
+                    {
+                        <text>@jobType.</text>
+                    }
+                    else
+                    {
+                        <text>@jobType.ToLower().</text>
+                    }
+
+                }
+                else
+                {
+                    <text>@jobType.ToLower(), </text>
+                    x++;
+                }
+            }
+        }
+    </div>
+    <div class="container col">
+        <div class="row" style="margin-top:10px">
+            @{int i = 0;
+                foreach (var image in Model.Images)
+                {
+                    <div class="container col p-1 pb-4">
+                        <img data-enlargable id="image-@i" class="image" style="width:400px;height:225px;cursor:zoom-in" src="~/Images/@Model.Title/@image" />
+                    </div>
+                    i++;
+                }
+            }
+        </div>
+        <br />
+        <a class="btn btn-lightgray" asp-action="Gallery" asp-controller="Home"><i class="fas fa-undo"></i> Povratak</a>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var modal = $(".modal");
+        var modalImg = $("#img01");
+        var span = $('.close');
+        $('img').click(function (e) {
+            e.stopPropagation();
+            modal.css({ display: "block" });
+            modalImg.attr('src', this.src);
+        });
+        $(document).click(function () {
+            modal.css({ display: "none" });
+        })
+        $(span).click(function () {
+            modal.css({ display: "none" });
+        });
+    });
+</script>

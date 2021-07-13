@@ -1,0 +1,167 @@
+﻿@model JobReferenceViewModel
+@inject SignInManager<ApplicationUser> signInManager;
+@{ViewData["Title"] = "Gallery";
+    ViewData["activeView"] = "Gallery"; }
+    @*<h1 style="font-size:80px">Galerija radova</h1>*@
+    @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    {*@
+<div class=" text-center">
+    <a class="btn btn-success m-4" asp-controller="Admin" asp-action="CreateJobReference">Kreiraj novu referencu</a>
+</div>
+        
+    @*}*@
+@*Prikaz na pcu*@
+<div class="d-none d-sm-block">
+    <form asp-controller="Home" asp-action="Gallery" method="get">
+        <div class="input-group">
+            <select name="jobTypeId" id="select" class="form-control">
+                <option value="@null" disabled selected hidden>Izaberite vrstu posla...</option>
+                @for (int i = 0; i < Model.JobTypes.Count(); i++)
+                {
+                    <option value="@Model.JobTypes[i].Id">@Model.JobTypes[i].Name</option>
+                }
+            </select>
+            <input id="textSearch" class="form-control col-4 col-sm-12" type="text" name="SearchString" placeholder="Pretraži radove..." />
+            <div class="input-group-append">
+                <input class="btn btn-lightgray" type="submit" value="Pretraga">
+            </div>
+        </div>
+        <label for="textSearch"></label>
+    </form>
+</div>
+@*Prikaz na mobitelu*@
+<div class="d-sm-none">
+    <form asp-controller="Home" asp-action="Gallery" method="get">
+        <select name="jobTypeId" id="select" class="form-control p-3">
+            <option value="@null" disabled selected hidden>Izaberite vrstu posla...</option>
+            @for (int i = 0; i < Model.JobTypes.Count(); i++)
+            {
+                <option value="@Model.JobTypes[i].Id">@Model.JobTypes[i].Name</option>
+            }
+        </select>
+        <input id="textSearch" class="form-control p-3" type="text" name="SearchString" placeholder="Pretraži radove..." />
+        <input class="btn btn-lightgray col-12 p-3" type="submit" value="Pretraga">
+        <label for="textSearch"></label>
+    </form>
+</div>
+
+@*<div class="container col-12 col-sm-12 col-lg-8 col-xl-7 pt-4">
+    <form asp-controller="Home" asp-action="Gallery" method="get">
+        <select name="jobTypeId" id="select" class="form-control">
+            <option value="@null" disabled selected hidden>Izaberite vrstu posla...</option>
+            @for (int i = 0; i < Model.JobTypes.Count(); i++)
+            {
+                <option value="@Model.JobTypes[i].Id">@Model.JobTypes[i].Name</option>
+            }
+        </select>
+        <label for="textSearch"></label>
+        <input id="textSearch" class="form-control" type="text" name="SearchString" placeholder="Pretraži radove..." />
+        <div class="input-group-append">
+            <input class="btn btn-primary" type="submit" value="Pretraga">
+        </div>
+    </form>
+</div>*@
+<div class="row no-gutter">
+    @if (Model.JobReferenceCards.Count() == 0)
+    {
+        <div class="container text-center pt-4">
+            <h1>Nema rezultata</h1>
+        </div>
+    }
+    @foreach (var jobReference in Model.JobReferenceCards)
+    {
+        <div id="img-@jobReference.Id" class="col-12 col-md-6 col-lg-6 col-xl-4 p-2 pt-4 pb-5">
+            @*@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))*@           
+            <text class="jobReferenceCard">
+                @*@{
+            <div class="row">
+                <form>
+                    <button asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id" class="btn btn-sm btn-primary d-none d-md-inline-block">
+                        Edit
+                    </button>
+                </form>
+                <form onclick="deleteJobReference(@jobReference.Id)">
+                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                        Delete
+                    </button>
+                </form>
+            </div>
+            <a class="btn-danger" asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id">Edit</a>
+        }*@
+                <a asp-action="Details" asp-route-id="@jobReference.Id">
+                    <div class="track-card-image" style="background-image: url('/Images/@jobReference.Title/@jobReference.Images.FirstOrDefault()')">
+                    </div>
+                </a>
+                <div class="row text-center pt-2">
+                    @*<form>
+                        <a asp-controller="Admin" asp-action="EditJobReference" asp-route-id="@jobReference.Id" class="btn btn-sm btn-primary d-md-inline-block">
+                            Uredi
+                        </a>
+                    </form>*@
+                    <form onclick="deleteJobReference(@jobReference.Id)">
+                        <a type="submit" class="btn btn-sm btn-danger d-md-inline-block">
+                            Izbriši
+                        </a>
+                    </form>
+                </div>
+                <text @*class="col-xl-12"*@>
+                    <h1 class="" style="padding-left:8px">@jobReference.Title</h1>
+                    <div style="padding-left:8px">
+                        @{int i = 1;
+                            foreach (var jobType in jobReference.JobTypes)
+                            {
+                                if (i == 1)
+                                {
+                                    <text>@jobType, </text>
+                                    i++;
+                                }
+                                else if (i == jobReference.JobTypes.Count())
+                                {
+                                    if (i == 1)
+                                    {
+                                        <text>@jobType.</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@jobType.ToLower().</text>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <text>@jobType.ToLower(), </text>
+                                    i++;
+                                }
+                            }
+                        }
+                    </div>
+</div>
+    }
+</div>
+<script>
+    $(function () {
+        $("#textSearch").autocomplete({
+            focus: true,
+                source: '@Url.Action("GalleryAutocomplete")'
+        });
+    });
+    function deleteJobReference(id) {
+        if (confirm("Jeste li sigurni da želite izbrisati referencu?")) {
+            var data = {
+                id: id
+            };
+            $.ajax({
+                type: 'POST',
+                url: "/Admin/DeleteJobReference",
+                data: data,
+                success: function (result) {
+                    alert("Referenca izbrisana!");
+                    $("#img-" + id).remove();
+                },
+                error: function () {
+                    alert("Referenca ne postoji.");
+                }
+            });
+        }
+    }
+</script>

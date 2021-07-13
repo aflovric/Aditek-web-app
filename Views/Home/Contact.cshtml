@@ -1,0 +1,159 @@
+﻿@model Email
+@{ViewData["Title"] = "Contact";
+    ViewData["activeView"] = "Contact"; }
+@*<div class="container col-10">
+        <div class="container text-center">
+            <h1 style="font-size:80px">Kontakt</h1>
+        </div>
+    </div>*@
+<div class="d-lg-none row justify-content-center">
+    <div class="fw-bold">
+        Pošaljite nam E-mail sa svim potrebnim podacima i opišite nam posao koji vam treba napraviti. Mi ćemo vas kontaktirati u najkraćem mogućem vremenu.
+    </div>
+</div>
+<form asp-controller="Home" asp-action="SubmitForm" class="needs-validation" target="_self" method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+    <div class="row">
+        <div class="form-group col-lg-6 col-sm-12">
+            <div class="form-group mt-4 mb-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fas fa-book"></i></span>
+                    </div>
+                    <input class="form-control" name="subject" placeholder="Predmet" type="text" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+            <div class="form-group mt-4 mb-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input class="form-control" name="name" placeholder="Vaše ime ili poduzeće" type="text" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+            <div class="form-group mt-4 mb-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fas fa-at"></i></span>
+                    </div>
+                    <input class="form-control" name="email" placeholder="E-mail adresa" type="email" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+            <div class="form-group mt-4 mb-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fas fa-home"></i></span>
+                    </div>
+                    <input class="form-control" name="address" placeholder="Adresa" type="text" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+            <div class="form-group mt-4 mb-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fa fa-phone"></i></span>
+                    </div>
+
+                    <input class="form-control" name="phoneNumber" placeholder="Broj telefona" type="text" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+            <div class="form-group mt-4">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text contact-span p-3"><i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                    <input class="form-control datepicker" name="date" placeholder="Datum sastanka" required />
+                    <div class="invalid-feedback">Molim ispunit ovo polje</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="big-text d-none d-lg-block d-xl-block fw-bold font-weight-bolder mt-4 mb-4">
+                @*POŠALJITE NAM E-MAIL SA SVIM PODACIMA I OPIŠITE NAM POSAO KOJI VAM TREBA NAPRAVITI. MI ĆEMO VAS KONTAKTIRATI U NAJKRAĆEM MOGUĆEM VREMENU.*@
+                Pošaljite nam E-mail sa svim potrebnim podacima i opišite nam posao koji vam treba napraviti. Mi ćemo vas kontaktirati u najkraćem mogućem vremenu.
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 mt-4 mb-4">
+            <div class="input-group input-group-lg">
+                @*<label for="description">Detaljan opis posla i vaših želja:</label>*@
+                <textarea class="form-control form-group" name="description" placeholder="Detaljan opis posla i vaših želja" rows="5" wrap="hard" style="resize:none; overflow:hidden"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center mb-4">
+        <div class="col-lg-2 col-4">
+            <button class="btn btn-lightgray" type="button" onclick="document.getElementById('Images').click()"><i class="fas fa-images"></i> Priloži sliku/e</button>
+            <input class="form-control" id="Images" name="attachment" type="file" accept="image/*" multiple="" style="display:none" />
+        </div>
+        <div class="col-lg-2 col-4">
+            <button class="btn btn-lightgray" type="submit"><i class="fas fa-envelope"></i> Pošalji</button>
+        </div>
+    </div>
+    <div class="text-center">Za dodavanje više slika, držite Ctrl dok birate slike.</div>
+    <div id="selectedFiles">
+    </div>
+</form>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("textarea").on("keydown", check);
+        });
+        function check() {
+            var el = this;
+            setTimeout(function () {
+                el.style.cssText += 'height:auto; padding:5';
+                el.style.cssText += 'height:' + el.scrollHeight + 'px';
+            }, 0);
+        }
+        var form = document.querySelector('.needs-validation');
+        form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        })
+        $("#select").click(function () {
+            $(this).animate({ down: "250px" });
+        });
+        $('.datepicker').datepicker({
+            orientation: 'bottom',
+            format: 'dd/mm/yyyy',
+            startDate: '0d'
+        });
+        var selDiv = "";
+        document.addEventListener("DOMContentLoaded", init, false);
+        function init() {
+            document.querySelector('#upload').addEventListener('change', handleFileSelect, false);
+            selDiv = document.querySelector("#selectedFiles");
+        }
+        function handleFileSelect(e) {
+            if (!e.target.files || !window.FileReader) return;
+            var i = 0;
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+            var html = "<div class=\"row\">";
+            filesArr.forEach(function (f) {
+                if (!f.type.match("image.*")) {
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    html += "<div class=\"container col-xl-6 col-md-12 image p-4 text-center\"><img class=\"d-block mx-auto\" src=\"" + e.target.result + "\" style=\"width: 400px; height: 225px;\"><br />" + f.name + "</div>";
+                    if (i + 1 == filesArr.length) {
+                        html += "</div>"
+                        selDiv.innerHTML = html;
+                    }
+                    console.log(i);
+                    i++;
+                }
+                reader.readAsDataURL(f);
+            });
+        }
+    </script>
+}

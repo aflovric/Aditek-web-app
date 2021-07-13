@@ -1,0 +1,44 @@
+﻿@model JobReferenceEditViewModel
+@{ ViewData["activeView"] = "Gallery"; }
+
+<h1>Edit @Model.Title</h1>
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ExistingImages" />
+    <div>
+        <label asp-for="Title">Name</label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div>
+        Description
+        <label asp-for="Description"></label>
+        <textarea class="form-control form-group" id="description" rows="5" cols="300" wrap="hard" style="resize:none; overflow:hidden" asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+        <div id="warning" style="display:none">You have reached the maximum number of characters!</div>
+    </div>
+    <div>
+        @foreach (var image in Model.ExistingImages)
+        {
+            <img style="width:400px;height:225px;" src="~/Images/@Model.Title/@image" />
+            <input type="button" value="@Model.Title" onclick="Darko('@Model.Title','@image')" />
+            <span></span>
+        }
+    </div>
+    @*@Html.AntiForgeryToken()*@
+    <input type="submit" value="Save" />
+</form>
+<script type="text/javascript">
+    var description = "";
+    var warning = document.getElementById("warning");
+    document.getElementById("description").addEventListener("input", check);
+    function check() {
+        description = document.getElementById("description").textContent;
+        if (description.length == 150) {
+            warning.style.display = "block";
+        }
+        else {
+            warning.style.display = "none";
+        }
+    }
+</script>

@@ -1,0 +1,26 @@
+﻿@model JobReferenceCreateViewModel
+@{ ViewData["activeView"] = "Gallery"; }
+<form target="_self" method="post" enctype="multipart/form-data">
+    <label hidden asp-for="Title"></label>
+    <input asp-for="Title" class="form-control" placeholder="Ime reference" />
+    <span asp-validation-for="Title"></span>
+    <div>
+        @for (int i = 0; i < Model.JobTypes.Count(); i++)
+        {
+            <input type="hidden" asp-for="@Model.JobTypes[i].Id" />
+            <input type="hidden" asp-for="@Model.JobTypes[i].Name" />
+            <input type="checkbox" asp-for="@Model.JobTypes[i].IsChecked" />
+            <label asp-for="@Model.JobTypes[i].IsChecked">@Model.JobTypes[i].Name</label>
+            <br />
+        }
+    </div><hr />
+    <div class="row justify-content-center text-center mb-4">
+        <div class="col-lg-2 col-4">
+            <button class="btn btn-lightgray" type="button" onclick="document.getElementById('upload').click()"><i class="fas fa-images"></i> Priloži sliku/e</button>
+            <input class="form-control" id="upload" name="Images" type="file" accept="image/*" multiple="" style="display:none" />
+        </div>
+        <div class="col-lg-2 col-4">
+            <button class="btn btn-lightgray" type="submit">Pohrani</button>
+        </div>
+    </div>
+</form>
