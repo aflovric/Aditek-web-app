@@ -22,15 +22,14 @@
 </head>
 <body>
     <header>
-        <nav class="navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="fw-bolder navbar-brand" style="font-size:24px" asp-area="" asp-controller="Home" asp-action="Index">Aditek</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
-                    <a class="fw-bolder navbar-brand" style="font-size:24px" asp-area="" asp-controller="Home" asp-action="Index">Aditek</a>
-                    <ul class="navbar-nav nav-justified flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-justified d-sm-none flex-grow-1">
                         @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                             {
 
@@ -60,7 +59,7 @@
                             }
                             else
                             {
-                                <a class="fw-bold border-left-black border-right-black font-weight-bolder nav-link p-3" asp-area="" asp-controller="Home" asp-action="Index">Naslovna</a>
+                                <a class="fw-bold font-weight-bolder nav-link p-3" asp-area="" asp-controller="Home" asp-action="Index">Naslovna</a>
                             }
                         </li>
                         <li class="nav-item">
@@ -70,7 +69,7 @@
                             }
                             else
                             {
-                                <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Gallery">Galerija</a>
+                                <a class="border-top-black fw-bold nav-link p-3" asp-area="" asp-controller="Home" asp-action="Gallery">Galerija</a>
                             }
                         </li>
                         <li class="nav-item">
@@ -80,7 +79,7 @@
                             }
                             else
                             {
-                                <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Services">Usluge</a>
+                                <a class="border-top-black fw-bold nav-link p-3" asp-area="" asp-controller="Home" asp-action="Services">Usluge</a>
                             }
                         </li>
                         <li class="nav-item">
@@ -90,7 +89,7 @@
                             }
                             else
                             {
-                                <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
+                                <a class="border-top-black fw-bold nav-link p-3" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
                             }
                         </li>
                         <li class="nav-item">
@@ -100,54 +99,174 @@
                             }
                             else
                             {
-                                <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="About">O nama</a>
+                                <a class="border-top-black fw-bold nav-link p-3" asp-area="" asp-controller="Home" asp-action="About">O nama</a>
                             }
                         </li>
                         @*<li class="nav-item">
-                            @if (ViewData["activeView"] == "Privacy")
+                                @if (ViewData["activeView"] == "Privacy")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                                }
+                            </li>*@
+                        @*@if (signInManager.IsSignedIn(User))
                             {
-                                <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                                <li class="nav-item">
+                                    <form method="post" asp-action="Logout" asp-controller="Account">
+                                        <button type="submit" class="nav-link logout btn btn-link py-0">
+                                            Odjava @User.Identity.Name
+                                        </button>
+                                    </form>
+                                </li>
                             }
                             else
                             {
-                                <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
-                            }
-                        </li>*@
-                        @*@if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <form method="post" asp-action="Logout" asp-controller="Account">
-                                    <button type="submit" class="nav-link logout btn btn-link py-0">
-                                        Odjava @User.Identity.Name
-                                    </button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                @if (ViewData["activeView"] == "Register")
-                                {
-                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
-                                }
-                                else
-                                {
-                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
-                                }
-                            </li>
-                            <li class="nav-item">
-                                @if (ViewData["activeView"] == "Login")
-                                {
-                                    <a class="fw-bold nav-link active p-3" asp-controller="account" asp-action="login">Admin prijava</a>
-                                }
-                                else
-                                {
-                                    <a class="fw-bold border-right-black nav-link p-3" asp-controller="account" asp-action="login">Admin prijava</a>
-                                }
+                                <li class="nav-item">
+                                    @if (ViewData["activeView"] == "Register")
+                                    {
+                                        <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
+                                    }
+                                </li>
+                                <li class="nav-item">
+                                    @if (ViewData["activeView"] == "Login")
+                                    {
+                                        <a class="fw-bold nav-link active p-3" asp-controller="account" asp-action="login">Admin prijava</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="fw-bold border-right-black nav-link p-3" asp-controller="account" asp-action="login">Admin prijava</a>
+                                    }
 
-                            </li>
-                        }*@
+                                </li>
+                            }*@
                     </ul>
+                    <div class="d-none d-sm-block flex-grow-1">
+                        <ul class="navbar-nav nav-justified">
+                            @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                {
+
+                                navbar
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Manage
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" asp-controller="Administration"
+                                               asp-action="ListUsers">Users</a>
+                                            <a class="dropdown-item" asp-controller="Administration"
+                                               asp-action="ListRoles">Roles</a>
+                                        </div>
+                                    </li>
+                                }*@
+                            @*<a>@User.Identity.Name</a>*@
+
+                            @*</ul>
+                                <ul class="navbar-nav nav-justified flex-grow-1">*@
+                            <li class="nav-item">
+                                @if (ViewData["activeView"] == "Index")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Index">Naslovna</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-left-black border-right-black font-weight-bolder nav-link p-3" asp-area="" asp-controller="Home" asp-action="Index">Naslovna</a>
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewData["activeView"] == "Gallery")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Gallery">Galerija</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Gallery">Galerija</a>
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewData["activeView"] == "Services")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Services">Usluge</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Services">Usluge</a>
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewData["activeView"] == "Contact")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewData["activeView"] == "About")
+                                {
+                                    <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="About">O nama</a>
+                                }
+                                else
+                                {
+                                    <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="About">O nama</a>
+                                }
+                            </li>
+                            @*<li class="nav-item">
+                                    @if (ViewData["activeView"] == "Privacy")
+                                    {
+                                        <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                                    }
+                                </li>*@
+                            @*@if (signInManager.IsSignedIn(User))
+                                {
+                                    <li class="nav-item">
+                                        <form method="post" asp-action="Logout" asp-controller="Account">
+                                            <button type="submit" class="nav-link logout btn btn-link py-0">
+                                                Odjava @User.Identity.Name
+                                            </button>
+                                        </form>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        @if (ViewData["activeView"] == "Register")
+                                        {
+                                            <a class="fw-bold nav-link active p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="fw-bold border-right-black nav-link p-3" asp-area="" asp-controller="Account" asp-action="Register">Registracija</a>
+                                        }
+                                    </li>
+                                    <li class="nav-item">
+                                        @if (ViewData["activeView"] == "Login")
+                                        {
+                                            <a class="fw-bold nav-link active p-3" asp-controller="account" asp-action="login">Admin prijava</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="fw-bold border-right-black nav-link p-3" asp-controller="account" asp-action="login">Admin prijava</a>
+                                        }
+
+                                    </li>
+                                }*@
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

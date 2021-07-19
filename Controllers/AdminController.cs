@@ -54,7 +54,7 @@ namespace Aditek.Controllers
         [HttpGet]
         public IActionResult CreateJobReference()
         {
-            var jobs = appDbContext.JobTypes.ToList();
+            var jobs = appDbContext.JobTypes.OrderBy(x => x.Name).ToList();
             JobReferenceCreateViewModel model = new JobReferenceCreateViewModel();
             model.JobTypes = jobs.Select(x => new CheckBoxItem()
             {

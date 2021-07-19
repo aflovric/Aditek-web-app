@@ -77,7 +77,7 @@ namespace Aditek.Controllers
                         Title = x.Title,
                         Id = x.Id,
                         Images = x.Images.Select(y => y.FileName).ToList(),
-                        JobTypes = x.JobTypes.Where(z => z.JobReferenceId == x.Id).Select(z => z.JobTypes.Name).ToList()
+                        JobTypes = x.JobTypes.Where(z => z.JobReferenceId == x.Id).OrderBy(z => z.JobTypes.Name).Select(z => z.JobTypes.Name).ToList()
                     }).ToList();
             }
             else if (searchString == null && jobTypeId != null)
